@@ -1,3 +1,13 @@
+# Local
+.idea/*
+*.bak
+.DS_Store
+storage/*
+!storage/data/.gitkeep
+!storage/logs/.gitkeep
+app/.idea/*
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
