@@ -26,6 +26,7 @@ COPY . .
 
 EXPOSE 8000
 
-ENTRYPOINT ["poetry", "run"]
-CMD ["python", "-m", "app.main"]
+#ENTRYPOINT ["poetry", "run"]
+#CMD ["python", "-m", "app.main"]
+CMD ["poetry", "run", "uvicorn", "app.main:app", "--host",  "0.0.0.0", "--port", "8000", "--reload", "--reload-exclude", "storage/*"]
 

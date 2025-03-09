@@ -1,5 +1,4 @@
 import logging
-import uvicorn
 
 from app.config import current_config, log_config
 from app.factory import create_app
@@ -16,11 +15,4 @@ if not logger.handlers:
 
 
 if __name__ == '__main__':
-    logger.info(f"Launching app with debug {current_config.DEBUG}")
-    uvicorn.run(
-        "app.main:app",
-        host="0.0.0.0",
-        port=8000,
-        reload=current_config.DEBUG,
-        reload_excludes=["logs"]
-    )
+    logger.info(f"Launching app in {current_config.ENVIRONMENT} environment")
