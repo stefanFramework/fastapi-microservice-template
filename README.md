@@ -72,6 +72,9 @@ fastapi-microservice-template/
 │   ├── database.py
 │   └── ...
 ├── migrations/
+├── storage/
+│   ├── data/
+|   ├── logs/
 ├── tests/
 ├── .env
 ├── .gitignore
@@ -84,6 +87,7 @@ fastapi-microservice-template/
 
 - `app/`: Contains the main application code.
 - `migrations/`: Directory for Alembic database migrations.
+- `storage/`: Contains all the log files and the db data of the project
 - `tests/`: Contains test cases for the application.
 - `.env`:  Environment variables file.
 - `Dockerfile`: Docker configuration for the Flask application.
