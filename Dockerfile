@@ -1,32 +1,25 @@
-FROM python:3.10-slim
+FROM python:3.10
 
 WORKDIR /app
 
-# Poetry
-ENV POETRY_VERSION=2.1.1
-ENV POETRY_VIRTUALENVS_IN_PROJECT=true
+ENV PYTHONFAULTHANDLER=1 \
+    PYTHONHASHSEED=random \
+    PYTHONUNBUFFERED=1 \
+    PIP_DEFAULT_TIMEOUT=100 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_NO_CACHE_DIR=1 \
+    POETRY_VERSION=2.1.1 \
+    POETRY_VIRTUALENVS_IN_PROJECT=0 \
+    POETRY_VIRTUALENVS_CREATE=0
+
 RUN pip install "poetry==$POETRY_VERSION"
 
-ENV PYTHONPATH=/app
+COPY poetry.lock pyproject.toml ./
 
-# Install psycopg2 dependencies
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    libpq-dev \
-    gcc \
-    python3-dev \
-    && rm -rf /var/lib/apt/lists/*
+RUN poetry install  --no-root --no-directory
 
+COPY . ./
 
-COPY pyproject.toml poetry.lock ./
+RUN poetry install
 
-RUN poetry install --no-root
-
-COPY . .
-
-EXPOSE 8000
-
-#ENTRYPOINT ["poetry", "run"]
-#CMD ["python", "-m", "app.main"]
 CMD ["poetry", "run", "uvicorn", "app.main:app", "--host",  "0.0.0.0", "--port", "8000", "--reload", "--reload-exclude", "storage/*"]
-

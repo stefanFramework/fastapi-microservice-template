@@ -10,10 +10,7 @@ from app.models.db import User
 
 logger = logging.getLogger(__name__)
 
-router = APIRouter(
-    prefix="/users",
-    tags=["users"]
-)
+router = APIRouter()
 
 
 class UserResource:
